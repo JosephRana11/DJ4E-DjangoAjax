@@ -1,0 +1,20 @@
+body{
+  font-family: sans-serif;
+}
+h1{
+  display: inline-block;
+}
+button{
+  display: inline-block;
+}
+.logout-btn{
+  display: inline-block;
+  margin-left: 5%;
+}
+.msg-display-box{
+  width: 1200px;
+  height: 500px;
+  border: solid;
+  border-width: 1px;
+  padding-top: 1%;
+}
