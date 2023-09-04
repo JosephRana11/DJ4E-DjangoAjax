@@ -3,10 +3,22 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login , logout , authenticate
+from database.forms import MsgForm
+from database.models import Msg
 
 @login_required(login_url='login')
 def home_view(request):
-   return render(request , 'home.html')
+    return render(request , 'home.html' , {'form':MsgForm})
+
+
+def save_msg_view(request):
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        if text:
+            msg = Msg(sender=request.user, text=text)
+            msg.save()
+            return redirect('home')
+
 
 def register_view(request):
   if request.method == 'POST':

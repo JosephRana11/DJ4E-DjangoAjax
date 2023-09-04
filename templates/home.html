@@ -4,6 +4,7 @@ HomePage
 {% endblock %}
 {% block content%}
 {% load static %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="{% static 'style.css'%}">
 <h1>Global Chat room </h1><a href="{% url 'logout'%}" class="logout-btn">Logout</a>{% csrf_token %}
 <h2>Logged in as {{request.user}}</h2>
@@ -13,5 +14,14 @@ HomePage
     </ul>
   </div>
 </div>
+<form method="post" action="{% url 'home' %}" id="msgForm">{% csrf_token %}
+  <input type="text" id="msg-box" style="width: 700px; height: 40px; margin-top: 1%; margin-left: 0.5%;" name="text">
+  <button type="submit" id="btnx">Send</button>
+  {% if request.user.username == 'admin' %}
+  <a style="margin: 2%;" href="{% url 'reset' %}" >Reset Global</a>{% csrf_token %}
+  {% endif %}
+</form>
+
 <script src="{% static 'msg.js'%}"></script>
+<script src="{% static 'send-msg.js'%}"></script>
 {% endblock %}

@@ -1,18 +1,34 @@
-console.log('Msg js Linked')
+console.log('Msg js Linked');
 
-function UpdateMsg(){
+function UpdateMsg() {
   $.ajax({
-    type : "GET",
+    type: "GET",
     url: "/get-msg/",
-    success: function(response){
-      console.log(response)
-      for (var key in response.obj){
-        document.getElementById('root').innerHTML += `<li>${response.obj[key].sender_id} : ${response.obj[key].text}</li>`
+    success: function(response) {
+      console.log(response);
+
+      // Create a document fragment to build the new content
+      var fragment = document.createDocumentFragment();
+
+      for (var key in response.obj) {
+        var listItem = document.createElement('li');
+        listItem.textContent = `${response.obj[key].sender} : ${response.obj[key].text}`;
+        fragment.appendChild(listItem);
       }
+
+      // Clear the existing content and append the new content
+      var rootElement = document.getElementById('root');
+      rootElement.innerHTML = '';
+      rootElement.appendChild(fragment);
     },
-    error: function(){
-      alert('Error in fetching data')
+    error: function() {
+      alert('Error in fetching data');
     }
-  })
+  });
 }
-UpdateMsg()
+
+function MainCall() {
+  UpdateMsg();
+}
+
+setInterval(MainCall, 200);
